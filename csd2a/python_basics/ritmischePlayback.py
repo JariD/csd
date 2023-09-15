@@ -6,20 +6,24 @@ import time
 
 #Daan kept trying to break my code so I implemented some while loops to stop that from happening. :)
 #so here, just like with the bpm it tries to check if the number of notes to playback are not negative or anything other than an integer
-numPlaybackTimes = 1
-while numPlaybackTimes == 1:
+while True:
     try:
         numPlaybackTimes = int(input("How many notes to you want to play?"))
         if numPlaybackTimes >= 1:
-            break #breaks the loop
-        elif numPlaybackTimes == 0:
+                if numPlaybackTimes > 40:
+                    print("That is a bit much to individualy add, but if you say so.")
+                    break
+                else:
+                    break
+        if numPlaybackTimes == 0:
             time.sleep(1)
             print("Hmmm... Seems like you don't want me to play any notes.")
             time.sleep(1)
+            # here I added an exit script, so it exits the script when a user puts in a 0
             print("Well okay then... Bye!")
             time.sleep(1)
             exit()
-        else:
+        elif numPlaybackTimes < 0:
             print("No negative integer please\n:)")
     except ValueError:
         print("Please use an integer as an input value.")
@@ -41,12 +45,14 @@ while True:
             if bpm < 50:
                 print("Thanks.. Snail..")
                 break
+            #else if the bpm is above 200 it jokes if the user is in a hurry
             elif bpm > 200:
                 print("Wow.. are you in a hurry?")
                 break
             else:
                 print("Great!")
-                break
+                break #break the loop
+        # stops breaking the code with negative bpm value
         else:
             print("The BPM must not be 0 or negative.")
     except ValueError:
@@ -64,15 +70,21 @@ print("Great notevalue choices are: 0.25, 0.5, 1, 1.5, 2.")
 # added a list for individual notevalues
 noteValue = []
 
+#So here I added yet another while loop
+#Only breaks the loop when the lenght of the list is equal to the number of playbacks
 while len(noteValue) < numPlaybackTimes:
     try:
+        # makes a newValue each loopround and a pretty string of the new lenght of the list + 1 to represent the new value
         newValue = float(input("Please enter value nr " + str(len(noteValue) + 1) + ": "))
+        # straight forward like in the last loop, if newValue is les or equal to 0 its restarts the loop.
         if newValue <= 0:
             print("This value is not possible.")
+        # Saw that a value of for instance 939491 could be added so I added a maximum value
         elif newValue > 10:
             print("This wouldn't be 'musically'.. Sorry.")    
         else:
-            noteValue.append(newValue)              
+            noteValue.append(newValue)      
+    #if anything other than a float or int is added it gives an error message.       
     except ValueError:
         print("Please add a valid input value")
 
@@ -89,7 +101,7 @@ for i in range(numPlaybackTimes): #Speelt x aantal keer de sample af
     #Delay of the duration of a note within the bpm, times its value.
     time.sleep((60 / float(bpm)) * float(noteValue[i])) #Enorm geklooi hier
 
-time.sleep(2)
+#just wanted to add a little bit of a goodbye party at the end of the sequence.
 print("The sequence has finished playing. Bye!")
 time.sleep(1)
 exit()
