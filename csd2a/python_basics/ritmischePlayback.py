@@ -1,8 +1,6 @@
 import simpleaudio as sa
 import time
 
-noteValue = [] #a list for individual note values
-
 # Input mode, next code asks a couple of inputs.
 # I am implementing some sleep time in between to make it feel more human.
 
@@ -59,10 +57,24 @@ time.sleep(1)
 print("Now please enter the note value of " + str(numPlaybackTimes) + " notes.")
 time.sleep(1)
 print("Great notevalue choices are: 0.25, 0.5, 1, 1.5, 2.")
+
 #Cant seem to find a working way to implement the while code in a for loop.
 #Next part is still breakable, for now...
-for x in range(numPlaybackTimes):
-    noteValue.append(float(input("")))
+
+# added a list for individual notevalues
+noteValue = []
+
+while len(noteValue) < numPlaybackTimes:
+    try:
+        newValue = float(input("Please enter value nr " + str(len(noteValue) + 1) + ": "))
+        if newValue <= 0:
+            print("This value is not possible.")
+        elif newValue > 10:
+            print("This wouldn't be 'musically'.. Sorry.")    
+        else:
+            noteValue.append(newValue)              
+    except ValueError:
+        print("Please add a valid input value")
 
 time.sleep(1)
 print("Thank you.")
@@ -76,3 +88,8 @@ for i in range(numPlaybackTimes): #Speelt x aantal keer de sample af
     play_obj.wait_done()
     #Delay of the duration of a note within the bpm, times its value.
     time.sleep((60 / float(bpm)) * float(noteValue[i])) #Enorm geklooi hier
+
+time.sleep(2)
+print("The sequence has finished playing. Bye!")
+time.sleep(1)
+exit()
