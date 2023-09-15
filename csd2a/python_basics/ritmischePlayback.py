@@ -9,27 +9,21 @@ numPlaybackTimes = int(input("How many notes to you want to play?"))
 time.sleep(1)
 print("Now we are going to implement a rythm")
 time.sleep(1)
-bpm = int(input("Please enter a bpm "))
-time.sleep(1)
 
-#if statements to check if bpm is legit
-#funny check to not break bpm
-if bpm < 0:
-    bpm = int(input("That is not a possible bpm.. Please re-enter"))
-    time.sleep(1)
-if bpm < 0:
-    bpm = int(input("No.. Just no.. Please re-enter"))
-    time.sleep(1)
-if bpm < 0:
-    bpm = int(input("For fuck sake.. Are you serious?"))
-    time.sleep(1)
-if bpm < 0:
-    bpm = int(input("Last chance.. Weirdo.."))
-    time.sleep(1)
-if bpm < 0:
-    print("Nope.. Bye.")
-    exit()
+#BPM must and can only be a possitive integer
+bpm = 1
+#while loop for bpm
+while bpm == 1:
+    try:
+        userInput = int(input("Please enter a bpm."))
+        if userInput >= 1:
+            break #Breaks the loop
+        else:
+            print("The BPM must not be 0 or negative.")
+    except ValueError:
+        print("Please use an integer as an input value...")
 
+#Funny bpm add-on
 if bpm < 50:
     print("Thanks.. Snail..")
     time.sleep(1)
