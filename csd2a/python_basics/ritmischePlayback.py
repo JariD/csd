@@ -1,36 +1,27 @@
 import simpleaudio as sa
 import time
 
-# Input mode, next code asks a couple of inputs.
-# I am implementing some sleep time in between to make it feel more human.
-
-#Daan kept trying to break my code so I implemented some while loops to stop that from happening. :)
-#so here, just like with the bpm it tries to check if the number of notes to playback are not negative or anything other than an integer
+# Ask for input playback times
 while True:
     try:
-        numPlaybackTimes = int(input("How many notes to you want to play?"))
-        if numPlaybackTimes >= 1:
-                if numPlaybackTimes > 40:
+        num_playback_times = int(input("How many notes to you want to play?"))
+        if num_playback_times >= 1:
+                if num_playback_times > 40:
                     print("That is a bit much to individualy add, but if you say so.")
                     break
                 else:
                     break
-        if numPlaybackTimes == 0:
-            time.sleep(1)
+        if num_playback_times == 0:
             print("Hmmm... Seems like you don't want me to play any notes.")
-            time.sleep(1)
             # here I added an exit script, so it exits the script when a user puts in a 0
             print("Well okay then... Bye!")
-            time.sleep(1)
             exit()
-        elif numPlaybackTimes < 0:
+        elif num_playback_times < 0:
             print("No negative integer please\n:)")
     except ValueError:
         print("Please use an integer as an input value.")
 
-time.sleep(1)
-print("Now we are going to implement a rythm")
-time.sleep(1)
+print("Now we are going to implement a rhythm")
 
 #BPM must and can only be a possitive integer
 bpm = 1
@@ -51,57 +42,98 @@ while True:
                 break
             else:
                 print("Great!")
-                break #break the loop
+                break #break the loopx
         # stops breaking the code with negative bpm value
         else:
             print("The BPM must not be 0 or negative.")
     except ValueError:
         print("Please use an integer as an input value...")
 
-
-time.sleep(1)
-print("Now please enter the note value of " + str(numPlaybackTimes) + " notes.")
-time.sleep(1)
+print("Now please enter the note value of " + str(num_playback_times) + " notes.")
 print("Great notevalue choices are: 0.25, 0.5, 1, 1.5, 2.")
 
-#Cant seem to find a working way to implement the while code in a for loop.
-#Next part is still breakable, for now...
-
 # added a list for individual notevalues
-noteValue = []
+note_durations = []
 
 #So here I added yet another while loop
 #Only breaks the loop when the lenght of the list is equal to the number of playbacks
-while len(noteValue) < numPlaybackTimes:
+while len(note_durations) < num_playback_times:
     try:
         # makes a newValue each loopround and a pretty string of the new lenght of the list + 1 to represent the new value
-        newValue = float(input("Please enter value nr " + str(len(noteValue) + 1) + ": "))
+        new_dur = float(input("Please enter value nr " + str(len(note_durations) + 1) + ": ").replace(',','.'))
         # straight forward like in the last loop, if newValue is les or equal to 0 its restarts the loop.
-        if newValue <= 0:
+        if new_dur <= 0:
             print("This value is not possible.")
         # Saw that a value of for instance 939491 could be added so I added a maximum value
-        elif newValue > 10:
+        elif new_dur > 10:
             print("This wouldn't be 'musically'.. Sorry.")    
         else:
-            noteValue.append(newValue)      
+            note_durations.append(new_dur)      
     #if anything other than a float or int is added it gives an error message.       
     except ValueError:
         print("Please add a valid input value")
 
-time.sleep(1)
 print("Thank you.")
-time.sleep(1)
 print("Now starting the sequence.")
 
-#Sequence
-wave_obj = sa.WaveObject.from_wave_file("/Users/admin/Desktop/Button_Select.wav")
-for i in range(numPlaybackTimes): #Speelt x aantal keer de sample af
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
-    #Delay of the duration of a note within the bpm, times its value.
-    time.sleep((60 / float(bpm)) * float(noteValue[i])) #Enorm geklooi hier
+# inserts the sample
+sample_button = sa.WaveObject.from_wave_file("/Users/admin/Desktop/Button_Select.wav")
+
+## For the timestamps function I used the code by Ciska
+#
+# calculate the duration of a quarternote in seconds
+quarternote_dur = 60.0 / bpm
+print("bpm:", bpm, "quarternote_dur", quarternote_dur)
+
+# transform note durations to sequence of time durations
+time_durations = []
+for note_dur in note_durations:
+    time_durations.append(quarternote_dur * note_dur)
+
+print("time_durations", time_durations)
+
+
+# transform time durations to a sequence of timestamps
+timestamp_seq = []
+# use the sum of the durations to calculate the timestamp for each note
+sum = 0
+for time_dur in time_durations:
+    timestamp_seq.append(sum)
+    sum = sum + time_dur
+
+print("timestamp_seq:", timestamp_seq)
+
+
+# retrieve the first time stamp
+if timestamp_seq:
+    ts = timestamp_seq.pop(0)
+else:
+    # list contains no items
+    print("no timestamps --> exit")
+    exit()
+
+# store the current time
+time_zero = time.time()
+print("time zero:", time_zero)
+
+# iterate through time sequence and play sample
+while True:
+    now = time.time() - time_zero
+    # check if we passed the next timestamp,
+    # if so, play sample and fetch new timestamp
+    if(now >= ts):
+        sample_button.play()
+        if timestamp_seq:
+            ts = timestamp_seq.pop(0)
+        else:
+            # no new timestamp available --> break while loop
+            break
+
+    time.sleep(0.001)
+
+# wait till last sample is done playing before exit
+time.sleep(time_durations[-1])
 
 #just wanted to add a little bit of a goodbye party at the end of the sequence.
 print("The sequence has finished playing. Bye!")
-time.sleep(1)
 exit()
