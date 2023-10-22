@@ -121,6 +121,8 @@ def show_figure(u=float,x0=float,y0=float,z0=float,num_points=int):
     ax = fig.add_subplot(projection='3d')
     # display a line 
     ax.plot(x, y, z)
+    title_text = f"u={u}, x0={x0}, y0={y0}, z0={z0}, num_points={num_points}"
+    ax.set_title(title_text)
     plt.show()
 
 # some amazingly beautifull plot data
@@ -131,6 +133,6 @@ def plot_tol():
     return show_figure(u=1.020, x0=0.0, y0=0.0, z0=1, num_points=1000)
 
 # use plot_"name" to make a visual presentation of the ikeda attractor data
-# plot_v2()
+plot_tornado()
 
 
