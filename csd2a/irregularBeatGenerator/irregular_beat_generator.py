@@ -3,6 +3,7 @@ import simpleaudio as sa
 from midiutil import MIDIFile
 import midi as mi
 import functions as func
+import ikeda_attractor as ia
 
 
 
@@ -24,50 +25,61 @@ def get_ts(event):
 
 # ================== create events and playback loop =================
 
-# while True:
-#     try:
-#         max_sequence_length = int(input(""))
+
+# load samples (add to assets folder and change sample name)
+samples = {}
+# put high sample here (hi hats)
+samples["high"] = sa.WaveObject.from_wave_file("assets/Plop.wav")
+# put mid sample here (snares)
+samples["mid"] = sa.WaveObject.from_wave_file("assets/Button_Select.wav")
+# put low sample
+samples["low"] = sa.WaveObject.from_wave_file("assets/kick.wav")
+
+
+print("Irregular Beat Generator")
+# init simpleaudio driver to prevent glitching of first ts
+samples["high"].play()
+time.sleep(1)
 
 #TODO 
-# make a list from ikeda attractor instead of following input
+# user input for bpm
 
+# user input for sequence length
+# user input for sequence start (or random)
+
+#TODO maybe add a function which makes u a variable for if input 0-10 -> u=0.1-1.0 
+""""
+implementing the above will add a more chaos if number = higher and less if number is lower
+but implementing this will break the filter for data will give different plot
+possibly makes the sequence less musically
+"""
+
+# original list for testing the sequence with pre existing arrays
+"""
 ts_seq_high = [0.0,0.5,1.5,2.0,2.5,3.0,4.0,4.5]
 ts_seq_mid = [1.0, 1.5, 3.0, 4.0]
 ts_seq_low = [1.5, 2.0,3.0]
-
-# transform timestamps into true bpm timestamps
-bpm = 220
-quarternote_dur = 60.0 / bpm
-
-# transform list into true bpm timestamp list
-ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
-ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
-ts_seq_low = [x * (quarternote_dur * 2) for x in ts_seq_low]
+"""
 
 # transform timestamps into true bpm timestamps
 bpm = 300
 
+# duration of quarternote gives the multiplyer for ts
+    # seconds in a minute / prefered bpm: 60 / 120 = 0.5
 quarternote_dur = 60.0 / bpm
 
-# load samples
+# translated x to high, y to mid, and z to low samples
+# transform list into true bpm timestamp list by multiplying original ts with multiplyer
+ts_seq_high, ts_seq_mid, ts_seq_low = ia.ikeda_sequence_tornado()
+ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
+ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
+ts_seq_low = [x * (quarternote_dur * 2) for x in ts_seq_low]
+
+# load samples (add to assets folder and change sample name)
 samples = {}
 samples["high"] = sa.WaveObject.from_wave_file("assets/Plop.wav")
 samples["mid"] = sa.WaveObject.from_wave_file("assets/Button_Select.wav")
 samples["low"] = sa.WaveObject.from_wave_file("assets/kick.wav")
-
-print("Irregular Beat Generator")
-samples["high"].play()
-time.sleep(0.5)
-
-#TODO Loop met user input
-
-ts_seq_high = [0.0,0.5,1.5,2.0,2.5,3.0,4.0,4.5]
-ts_seq_mid = [1.0, 1.5, 3.0, 4.0]
-ts_seq_low = [1.5, 2.0,3.0]
-
-ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
-ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
-ts_seq_low = [x * (quarternote_dur * 2) for x in ts_seq_low]
 
 
 # create event sequence
@@ -75,6 +87,8 @@ event_seq = []
 event_seq += create_events(ts_seq_high, "high")
 event_seq += create_events(ts_seq_mid, "mid")
 event_seq += create_events(ts_seq_low, "low")
+
+print(event_seq)
 
 # print(event_seq)
 
@@ -89,19 +103,23 @@ event = play_seq.pop(0)
 
 num_playback_times = 1
 
+
 func.playback(num_playback_times,time,time_zero,event,samples,play_seq,event_seq)
             
 
 
 ## ======================== MIDI FUNCTION ===================================
 
-#TODO
+# TODO user input
 """
-User input(do you want to store midi data?)
-    y => store data
-    n => not store 
+do you want to save? y/n
+    if n
+        regenerate
+    if y
+        save generation to user input string
 """
 
 # function to save the mididata to a separate file
 mi.save_to_midi(event_seq=event_seq,bpm=bpm,event_dur=0.1,quarternote_dur=quarternote_dur,
 file_name="events_lists.midi")
+
