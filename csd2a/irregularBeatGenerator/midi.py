@@ -5,7 +5,7 @@
 from midiutil import MIDIFile
 
 # function to store midi data
-def save_to_midi(event_seq:list, bpm:int, event_dur:float,quarternote_dur:int, file_name:str):
+def save_to_midi(event_seq=list, bpm=int, event_dur=float,quarternote_dur=int, file_name=str):
 
     # set the necessary values for MIDI util
     velocity=80
@@ -36,3 +36,18 @@ def save_to_midi(event_seq:list, bpm:int, event_dur:float,quarternote_dur:int, f
 
     with open(file_name,'wb') as outf:
         mf.writeFile(outf)
+
+# Ask user to save midi sequence Y/n
+# either Y or n save the sequence to file_name output
+def user_input_save_midi(event_seq, bpm, quarternote_dur):
+    while True:
+        yesno = input("Do you want to save this midi sequence? Y/n?")
+        if yesno == 'Y':
+            file_name = input("Enter file name: ")
+            save_to_midi(event_seq=event_seq, bpm=bpm, event_dur=0.1, quarternote_dur=quarternote_dur, file_name=file_name + ".midi")
+            break
+        elif yesno == 'n':
+            break
+        else:
+            print("That is not a valid input. Please enter Y or n.")
+    return

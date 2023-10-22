@@ -1,7 +1,7 @@
 import time
 import simpleaudio as sa
-from midiutil import MIDIFile
 import midi as mi
+from midiutil import MIDIFile
 import functions as func
 import ikeda_attractor as ia
 
@@ -26,6 +26,9 @@ def get_ts(event):
 # ================== create events and playback loop =================
 
 
+# init bpm for midi engine
+bpm = 300
+
 # load samples (add to assets folder and change sample name)
 samples = {}
 # put high sample here (hi hats)
@@ -40,6 +43,9 @@ print("Irregular Beat Generator")
 # init simpleaudio driver to prevent glitching of first ts
 samples["high"].play()
 time.sleep(1)
+
+bpm = func.user_input_bpm()
+print(bpm)
 
 #TODO 
 # user input for bpm
@@ -62,15 +68,31 @@ ts_seq_low = [1.5, 2.0,3.0]
 """
 
 # transform timestamps into true bpm timestamps
-bpm = 300
-
 # duration of quarternote gives the multiplyer for ts
     # seconds in a minute / prefered bpm: 60 / 120 = 0.5
-quarternote_dur = 60.0 / bpm
+            # / 2 to make it more musical
+quarternote_dur = (60.0 / bpm) / 2
+
+
+# # TODO loop or function to ask user for long or short loop, + enter loop length
+# while True:
+#     # enter sequence start 
+#     seq_length = float(input("Enter a loop length, leave empty for full sequence."))
+#     if seq_length == int:
+
+#         break
+#     elif seq_length == '':
+#         seq_start = 0
+#         break
+#     else:
+#         print("Please enter a loop length or leave empty")
+#         break
+
+# print(seq_start)
 
 # translated x to high, y to mid, and z to low samples
 # transform list into true bpm timestamp list by multiplying original ts with multiplyer
-ts_seq_high, ts_seq_mid, ts_seq_low = ia.ikeda_sequence_tornado()
+ts_seq_high, ts_seq_mid, ts_seq_low = ia.gen_sequence_ikeda_output(u=0.919, x0=0, y0=0, z0=1, num_points=10, seq_start=0, seq_end=-1, save_to_file='output.txt')
 ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
 ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
 ts_seq_low = [x * (quarternote_dur * 2) for x in ts_seq_low]
@@ -88,9 +110,8 @@ event_seq += create_events(ts_seq_high, "high")
 event_seq += create_events(ts_seq_mid, "mid")
 event_seq += create_events(ts_seq_low, "low")
 
-print(event_seq)
-
-# print(event_seq)
+# print event list
+#print(event_seq)
 
 # order events based on timestamp
 event_seq.sort(key=get_ts)
@@ -105,21 +126,8 @@ num_playback_times = 1
 
 
 func.playback(num_playback_times,time,time_zero,event,samples,play_seq,event_seq)
-            
 
 
-## ======================== MIDI FUNCTION ===================================
-
-# TODO user input
-"""
-do you want to save? y/n
-    if n
-        regenerate
-    if y
-        save generation to user input string
-"""
-
-# function to save the mididata to a separate file
-mi.save_to_midi(event_seq=event_seq,bpm=bpm,event_dur=0.1,quarternote_dur=quarternote_dur,
-file_name="events_lists.midi")
-
+# # Ask user to save midi sequence Y/n
+# # either Y or n save the sequence to file_name output
+mi.user_input_save_midi(event_seq,bpm,quarternote_dur)

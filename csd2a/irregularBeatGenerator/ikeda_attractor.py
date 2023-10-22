@@ -133,6 +133,6 @@ def plot_tol():
     return show_figure(u=1.020, x0=0.0, y0=0.0, z0=1, num_points=1000)
 
 # use plot_"name" to make a visual presentation of the ikeda attractor data
-plot_tornado()
+#plot_tornado()
 
 
