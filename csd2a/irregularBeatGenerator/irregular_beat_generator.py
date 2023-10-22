@@ -2,6 +2,7 @@ import time
 import simpleaudio as sa
 from midiutil import MIDIFile
 import midi as mi
+import functions as func
 
 
 
@@ -88,24 +89,7 @@ event = play_seq.pop(0)
 
 num_playback_times = 1
 
-# code from ciska 
-while num_playback_times:
-    now = time.time() - time_zero
-    # check if we need to play a sample
-    if(now > event["ts"]):
-        sample_id = event["sample_id"]
-        samples[sample_id].play()
-        if play_seq:
-            event = play_seq.pop(0)
-        else:
-                #NOTE: a bit of duplicate code below, this is just a couple
-                time_zero = time.time()
-                play_seq = event_seq.copy()
-                num_playback_times -= 1
-                event = play_seq.pop(0)
-                time_zero = time.time()
-    else:
-            time.sleep(0.001)
+func.playback(num_playback_times,time,time_zero,event,samples,play_seq,event_seq)
             
 
 
