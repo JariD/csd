@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+import random
 
 
 #framework to make the ikeda attractor algorithm
@@ -52,7 +53,15 @@ def transform_to_event_sequence(array=tuple) -> list:
     # add all numbers up throughout the array
     event_sequence = []
     previous_num = 0
+    #old part of the loop
+    # for num in array:
+    #     event_sequence.append(previous_num + num)
+    #     previous_num = previous_num + num
+    
+    #current part of the function so that the ts list only adds up to 10
     for num in array:
+        if previous_num + num > 15:
+            break
         event_sequence.append(previous_num + num)
         previous_num = previous_num + num
 
@@ -61,8 +70,7 @@ def transform_to_event_sequence(array=tuple) -> list:
 
 
 # Returns 3 lists (one for x, y, z-axis) (def function from chat-gpt)
-def gen_sequence_ikeda_output(u=0.918, x0=0, y0=0, z0=1, num_points=100, seq_start=0, seq_end=-1, save_to_file='output.txt'):
-    
+def gen_sequence_ikeda_output(u=0.918, x0=0, y0=0, z0=1, num_points=1000, seq_start=0, seq_end=50, save_to_file='output.txt'):
     # if no seq_end is given into the function, take the whole set of the Ikeda equation
     # -1 because list starts at 0
     if seq_end == -1:
@@ -85,12 +93,14 @@ def gen_sequence_ikeda_output(u=0.918, x0=0, y0=0, z0=1, num_points=100, seq_sta
     y = transform_to_event_sequence(y)
     z = transform_to_event_sequence(z)
 
-    # save the data to a separate text file
+    # save the data to a separate text file, use for testing
+    """
     if save_to_file:
         with open(save_to_file, 'w+') as f:
             # zip x, y, z so all index is zipped together
             for c in zip(x, y, z):
                 f.write(str(c) + '\n')
+    """
 
     return x, y, z
 
@@ -134,5 +144,3 @@ def plot_tol():
 
 # use plot_"name" to make a visual presentation of the ikeda attractor data
 #plot_tornado()
-
-

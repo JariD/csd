@@ -45,7 +45,7 @@ def user_input_save_midi(event_seq, bpm, quarternote_dur):
         if yesno == 'Y':
             file_name = input("Enter file name: ")
             save_to_midi(event_seq=event_seq, bpm=bpm, event_dur=0.1, quarternote_dur=quarternote_dur, file_name=file_name + ".midi")
-            break
+            exit()
         elif yesno == 'n':
             break
         else:

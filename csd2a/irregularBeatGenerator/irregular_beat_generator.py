@@ -4,56 +4,31 @@ import midi as mi
 from midiutil import MIDIFile
 import functions as func
 import ikeda_attractor as ia
+import random
 
-
-
-
-# =================== Functions ====================================
-
-# function from ciska's code
-# returns a list of event dictionaries, present it with a list of ts and the sample_id
-def create_events(ts_seq, sample_id):
-    events = []
-    for i in ts_seq:
-        events.append({"ts": i, "sample_id": sample_id})
-    return events
-
-# also ciska
-def get_ts(event):
-    return event["ts"]
-
-
-# ================== create events and playback loop =================
-
-
+# =======================
 # init bpm for midi engine
 bpm = 300
 
 # load samples (add to assets folder and change sample name)
 samples = {}
 # put high sample here (hi hats)
-samples["high"] = sa.WaveObject.from_wave_file("assets/Plop.wav")
+samples["low"] = sa.WaveObject.from_wave_file("assets/Hat-Little.wav")
 # put mid sample here (snares)
-samples["mid"] = sa.WaveObject.from_wave_file("assets/Button_Select.wav")
+samples["high"] = sa.WaveObject.from_wave_file("assets/Snare-Ditty.wav")
 # put low sample
-samples["low"] = sa.WaveObject.from_wave_file("assets/kick.wav")
-
+samples["mid"] = sa.WaveObject.from_wave_file("assets/Basedrum-Dancy.wav")
+# put sample for init sound
+samples["init"] = sa.WaveObject.from_wave_file("assets/Ocarina_C2_Short.wav")
 
 print("Irregular Beat Generator")
 # init simpleaudio driver to prevent glitching of first ts
-samples["high"].play()
+samples["init"].play()
 time.sleep(1)
 
 bpm = func.user_input_bpm()
-print(bpm)
 
-#TODO 
-# user input for bpm
 
-# user input for sequence length
-# user input for sequence start (or random)
-
-#TODO maybe add a function which makes u a variable for if input 0-10 -> u=0.1-1.0 
 """"
 implementing the above will add a more chaos if number = higher and less if number is lower
 but implementing this will break the filter for data will give different plot
@@ -88,46 +63,48 @@ quarternote_dur = (60.0 / bpm) / 2
 #         print("Please enter a loop length or leave empty")
 #         break
 
-# print(seq_start)
 
-# translated x to high, y to mid, and z to low samples
-# transform list into true bpm timestamp list by multiplying original ts with multiplyer
-ts_seq_high, ts_seq_mid, ts_seq_low = ia.gen_sequence_ikeda_output(u=0.919, x0=0, y0=0, z0=1, num_points=10, seq_start=0, seq_end=-1, save_to_file='output.txt')
-ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
-ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
-ts_seq_low = [x * (quarternote_dur * 2) for x in ts_seq_low]
+# 2 simple input functions for presenting the algorithm.
+# might put in while loop latern
+# points = int(input("points?"))
+# start = int(input("start?"))
 
-# load samples (add to assets folder and change sample name)
-samples = {}
-samples["high"] = sa.WaveObject.from_wave_file("assets/Plop.wav")
-samples["mid"] = sa.WaveObject.from_wave_file("assets/Button_Select.wav")
-samples["low"] = sa.WaveObject.from_wave_file("assets/kick.wav")
+#endless loop of generating new ikeda sequence, if Y is pressed inside midi loop the script is exit()
+while True:
+    # translated x to high, y to mid, and z to low samples
+    # transform list into true bpm timestamp list by multiplying original ts with multiplyer
+    ts_seq_high, ts_seq_mid, ts_seq_low = ia.gen_sequence_ikeda_output(u=random.uniform(0.90,1.02), x0=0, y0=0, z0=1, num_points=1000, seq_start=random.randint(200,600), seq_end=-1, save_to_file='output.txt')
+    # multiply the ts by quarternote_dur for all array
+    ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
+    ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
+    ts_seq_low = [x * (quarternote_dur * 2) for x in ts_seq_low]
+
+    # create event sequence
+    event_seq = []
+    event_seq += func.create_events(ts_seq_high, "high")
+    event_seq += func.create_events(ts_seq_mid, "mid")
+    event_seq += func.create_events(ts_seq_low, "low")
+
+    # print event list
+    # print(event_seq)
+
+    # order events based on timestamp
+    event_seq.sort(key=func.get_ts)
+
+    # iterate through time sequence and play sample
+
+    time_zero = time.time()
+    play_seq = event_seq.copy()
+    event = play_seq.pop(0)
+
+    num_playback_times = 1
+
+    # endless loop of playback generation
+
+    func.playback(num_playback_times,time,time_zero,event,samples,play_seq,event_seq)
 
 
-# create event sequence
-event_seq = []
-event_seq += create_events(ts_seq_high, "high")
-event_seq += create_events(ts_seq_mid, "mid")
-event_seq += create_events(ts_seq_low, "low")
-
-# print event list
-#print(event_seq)
-
-# order events based on timestamp
-event_seq.sort(key=get_ts)
-
-# iterate through time sequence and play sample
-
-time_zero = time.time()
-play_seq = event_seq.copy()
-event = play_seq.pop(0)
-
-num_playback_times = 1
-
-
-func.playback(num_playback_times,time,time_zero,event,samples,play_seq,event_seq)
-
-
-# # Ask user to save midi sequence Y/n
-# # either Y or n save the sequence to file_name output
-mi.user_input_save_midi(event_seq,bpm,quarternote_dur)
+    # # Ask user to save midi sequence Y/n
+    # # either Y or n save the sequence to file_name output
+    mi.user_input_save_midi(event_seq,bpm,quarternote_dur)
+        
