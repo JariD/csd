@@ -73,7 +73,7 @@ quarternote_dur = (60.0 / bpm) / 2
 while True:
     # translated x to high, y to mid, and z to low samples
     # transform list into true bpm timestamp list by multiplying original ts with multiplyer
-    ts_seq_high, ts_seq_mid, ts_seq_low = ia.gen_sequence_ikeda_output(u=random.uniform(0.90,1.02), x0=0, y0=0, z0=1, num_points=1000, seq_start=random.randint(200,600), seq_end=-1, save_to_file='output.txt')
+    ts_seq_high, ts_seq_mid, ts_seq_low = ia.gen_sequence_ikeda_output(u=random.uniform(0.90,1.02), x0=0, y0=0, z0=1, num_points=1000, seq_start=random.randint(50,400), seq_end=-1, save_to_file='output.txt')
     # multiply the ts by quarternote_dur for all array
     ts_seq_high = [x * quarternote_dur for x in ts_seq_high]
     ts_seq_mid = [x * quarternote_dur for x in ts_seq_mid]
