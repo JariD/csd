@@ -32,3 +32,11 @@ I would've liked to add a user input function so that a user can really customiz
 Because of the naturally occurring polyrhythmic patterns in the Ikeda output, I decided to leave out the user input for irregular time signatures, and therefore made a consious choice to slightly deviate from the final assignment as this would be more in line with the vision I had for the end result.
 
 For the next block, I aim to keep the final assignment in mind from the beginning and ensure that the assignments in between contribute to my artistic vision for the final assignment.
+
+### Time spent on assignment
+
+The following is an estimation of the time I spent on the assignment
+    6-10 hrs: Making the irregular_beat_generator.py work with code (this includes other assignments)
+    10-15hrs: Building ikeda_attractor and filtering/implementing data
+    1-2hrs: midi implementation
+    5-20hrs: practicing python with automate the boring stuff
