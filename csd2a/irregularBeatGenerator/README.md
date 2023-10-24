@@ -4,7 +4,7 @@ The Irregular Beat Generator is an algoritmic rythm generator.
 It uses an Ikeda Attractor to generate a rythmic composition.
 You can either use the finetuned beat generator or tinker with the ikeda generation input
 
-## Finetuning voor de eindopdracht
+## Finetuned for final assignment
 
 The code is finetuned for the presentation of the end assignment. 
     When the beat generator runs the following function, u is the amount of chaos in the sequence. I finetuned the code as much so that 
@@ -25,7 +25,7 @@ inherently has a polyrithmic function.
 Sometimes when the code is run the round function does not work properly, you can check this with the print(event_seq) function. Because of this issue
 I made it that you can retrigger generation. This will take new values for the u, number of points and start of the sequence. You can re-generate as much as you like untill you get usefull output which you can save to a custom midi file. I gave a try at the decimal library but found out that it would make the program too complex for now. This could be an implementation in the future. A user of the program probably has some experience with python as the real value in the program is in tinkering with the ikeda generation. A plot function is added to visualise the data outcome and I added some example plots in the plot files and some noteworthy function examples.
 
-## Reflectie
+## Reflection
 
 I would've liked to add a user input function so that a user can really customize the sequence to it's own liking but found out that the data out of the sequence can become really chaotic or boring with some inputs so I hardcoded certain limits to the data input so it would always give a perpetual rythmic outcome.
 
