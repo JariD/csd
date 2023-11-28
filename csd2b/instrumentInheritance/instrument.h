@@ -5,6 +5,12 @@
 class Instrument
 {
 public:
+    Instrument(std::string name);
+    ~Instrument();
 
-private:
+    void play();
+protected:
+    std::string name;
 };
+
+#endif
