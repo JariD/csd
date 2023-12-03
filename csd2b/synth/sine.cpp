@@ -1,4 +1,4 @@
-#include "sine.h"
+#include "oscillator.h"
 #include "math.h"
 
 Sine::Sine(float frequency, float samplerate) : frequency(frequency),

@@ -1,14 +1,14 @@
-#ifndef _SINE_H_
-#define _SINE_H_
+#ifndef _OSC_H_
+#define _OSC_H_
 #include <iostream>
 #include <cmath>
 
-class Sine
+class Oscillator
 {
 public:
   //Constructor and destructor
-  Sine(float frequency, float samplerate = 44100);
-  ~Sine();
+  Oscillator(float frequency, float samplerate = 44100);
+  ~Oscillator();
   void setSamplerate(float samplerate);
   //return the current sample
   float getSample();
