@@ -1,14 +1,14 @@
-#ifndef _OSC_H_
-#define _OSC_H_
+#ifndef _Oscillator_H_
+#define _Oscillator_H_
 #include <iostream>
-#include <cmath>
 
 class Oscillator
 {
 public:
-  //Constructor and destructor
-  Oscillator(float frequency, float samplerate = 44100);
+  Oscillator(float frequency= 0, float samplerate = 44100);
   ~Oscillator();
+
+  // allow to set samplerate after initialization
   void setSamplerate(float samplerate);
   //return the current sample
   float getSample();
@@ -20,7 +20,6 @@ public:
   float getFrequency();
 
 private:
-  const float pi = acos (-1);  //atan(1) * 4; <-- vak van Pieter.
   float frequency;
   float amplitude;
   float phase;

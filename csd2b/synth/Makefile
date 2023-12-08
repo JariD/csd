@@ -1,7 +1,7 @@
-./CXX= g++
-CXXFLAGS = -I/usr/local/include -Wall -std=c++17
+CXX= g++
+CXXFLAGS = -I/usr/local/include -Wall -std=c++1z
 LDFLAGS= -ljack
-SOURCE=sine.o main.o
+SOURCE=callback.o audioToFile.o oscillator.o main.o ui_test.o ui.o
 TARGET=example
 
 $(TARGET) : $(SOURCE)
@@ -11,4 +11,5 @@ $(TARGET) : $(SOURCE)
 	$(CXX) -c $< $(CXXFLAGS)
 
 clean:
-	rm -f $(TARGET) *.o
+	rm -f $(TARGET) *.o *.csv
+

@@ -1,46 +1,41 @@
 #include "oscillator.h"
 #include "math.h"
 
-Sine::Sine(float frequency, float samplerate) : frequency(frequency),
+Oscillator::Oscillator(float frequency, float samplerate) : frequency(frequency),
   amplitude(1.0), phase(0), sample(0), samplerate(samplerate)
 {
-  std::cout << "Sine - constructor\n";
+  std::cout << "Oscillator - constructor\n";
 }
 
 
-
-Sine::~Sine() {
-  std::cout << "Sine - destructor\n";
+Oscillator::~Oscillator() {
+  std::cout << "Oscillator - destructor\n";
 }
 
-void Sine::setSamplerate(float samplerate) {
-  this->samplerate =samplerate;
+void Oscillator::setSamplerate(float samplerate) {
+  this->samplerate = samplerate;
 }
 
-
-
-float Sine::getSample() {
+float Oscillator::getSample() {
   return sample;
 }
 
-void Sine::tick() {
-  // NOTE 1. - frequency / SAMPLERATE can be implemented in a more efficient way
+void Oscillator::tick() {
   phase += frequency / samplerate;
-  if(phase > 1.0f) {
-    phase -= 1.0f;
-  }
-  sample = sin(pi * 2 * phase) * amplitude;
-
+  // wrap the phase to interval [0, 1]
+  if(phase > 1) phase -= 1.0;
+  sample = sin(M_PI * 2 * phase) * amplitude;
 }
 
 //getters and setters
-void Sine::setFrequency(float frequency)
+void Oscillator::setFrequency(float frequency)
 {
-  // TODO add check to see if parameter is valid
+  // TODO
+  // add check to see if parameter is valid
   this->frequency = frequency;
 }
 
-float Sine::getFrequency()
+float Oscillator::getFrequency()
 {
   return frequency;
 }

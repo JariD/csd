@@ -1,14 +1,15 @@
 #ifndef _SINE_H_
 #define _SINE_H_
-#include <iostream>
-#include <cmath>
-#include "oscillator.h"
 
-class Sine : public Oscillator
-{
+
+class Sine {
 public:
-    Sine();
-    ~Sine();
+  Sine();
+  ~Sine();
+
+  //override calculate from base class
+  void calculate();
 };
 
-#endif
+
+#endif //SINE_H_
