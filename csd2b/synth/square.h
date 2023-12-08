@@ -1,15 +1,13 @@
 #ifndef _SQUARE_H_
 #define _SQUARE_H_
+#include "oscillator.h"
 
-
-class Square {
+class Square : public Oscillator{
 public:
-  Square();
-  ~Square();
+    Square(float frequency= 0, float samplerate = 44100);
 
-  //override calculate from base class
-  void calculate();
+protected:
+    void calculate();
 };
 
-
-#endif //SQUARE_H_
+#endif

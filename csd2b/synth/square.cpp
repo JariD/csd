@@ -16,7 +16,9 @@ Square::~Square()
   std::cout << "• Square::~Square\n";
 }
 
-void Square::calculate()
-{
+void Square::calculate() {
+    sample = amplitude;
+    if(phase >= 0.5) {
+        sample *=-1.0f;
+    }
 
-}
