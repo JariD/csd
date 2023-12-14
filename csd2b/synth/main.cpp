@@ -4,6 +4,7 @@
 #include "math.h"
 #include "audioToFile.h"
 #include "oscillator.h"
+#include "callback.h"
 
 /*
  * NOTE: jack2 needs to be installed
@@ -13,8 +14,8 @@
  * jackd -d coreaudio
  */
 
-#define WRITE_TO_FILE 1
-
+#define WRITE_TO_FILE 0
+#define PLOT 0
 
 int main(int argc, char **argv) {
   auto callback = CustomCallback{};
@@ -23,8 +24,10 @@ int main(int argc, char **argv) {
 #if WRITE_TO_FILE
   AudioToFile audioToFile;
   audioToFile.write(callback);
-#else
+#elif PLOT 0
+  plot.show()
 
+#else
   jackModule.init(0, 1);
 
   bool running = true;

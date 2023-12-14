@@ -3,6 +3,8 @@
 
 #include "jack_module.h"
 #include "saw.h"
+#include "square.h"
+#include "sine.h"
 
 class CustomCallback : public AudioCallback {
 public:
@@ -12,7 +14,7 @@ public:
 
 private:
   float samplerate = 44100;
-  Saw saw = saw(220, samplerate);
+  Sine sine = Sine(400, samplerate);
 };
 
 #endif

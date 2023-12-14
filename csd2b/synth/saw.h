@@ -2,9 +2,9 @@
 #define _SAW_H_
 #include "oscillator.h"
 
-class Saw {
+class Saw : public Oscillator {
 public:
-    Saw();
+    Saw(float frequency, float samplerate);
     ~Saw();
 
     //override calculate from base class
