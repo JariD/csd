@@ -1,5 +1,5 @@
 #include "synth.h"
-#include <iostream"
+#include <iostream>
 
 //TODO make synth cpp
 //Pointer to oscillator to point to oscillatorclass?
@@ -7,11 +7,11 @@
 
 Synth::Synth()
 
-void addOscillator(Oscillator*)
+void addOscillator()
 {
     std::cout << "Oscillator added\n";
 }
-void removeOscillator(Oscillator*)
+void removeOscillator()
 {
     std::cout << "Oscillator removed\n";
 }

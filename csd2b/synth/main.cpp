@@ -8,7 +8,6 @@
 //parts of the code are from csd github
 
 #define WRITE_TO_FILE 0
-#define PLOT 0
 
 int main(int argc, char **argv) {
   auto callback = CustomCallback{};
@@ -17,8 +16,6 @@ int main(int argc, char **argv) {
 #if WRITE_TO_FILE
   AudioToFile audioToFile;
   audioToFile.write(callback);
-#elif PLOT
-  plot.show()
 
 #else
   jackModule.init(0, 1);

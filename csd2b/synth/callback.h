@@ -5,6 +5,7 @@
 #include "saw.h"
 #include "square.h"
 #include "sine.h"
+#include "triangle.h"
 #include <math.h>
 #include "melody.h"
 
@@ -19,6 +20,7 @@ private:
   Sine sine;
   Square square;
   Saw saw;
+  Triangle triangle;
   Melody melody;
   float amplitude = 0.25;
 //  Melody melody;
