@@ -4,7 +4,7 @@
 
 class Saw : public Oscillator {
 public:
-    Saw(float frequency, float samplerate);
+    Saw(float frequency= 0, float sampleRate = 44100);
     ~Saw();
 
     //override calculate from base class

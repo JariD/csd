@@ -1,6 +1,8 @@
 #include "oscillator.h"
 #include "math.h"
 
+//parts of the code are from csd github
+
 Oscillator::Oscillator(float frequency, float samplerate) : frequency(frequency),
     amplitude(1.0), phase(0), sample(0), samplerate(samplerate)
 {
