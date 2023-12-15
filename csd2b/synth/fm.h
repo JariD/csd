@@ -8,6 +8,7 @@ class FM : public Synth {
 public:
     FMSynth();
     ~FMSynth();
+    freqModulation();
 protected:
 };
 

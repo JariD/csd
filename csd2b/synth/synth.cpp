@@ -7,6 +7,11 @@
 
 Synth::Synth()
 
+
+//SET SAMPLERATE
+//SET AMPLITUDE
+
+/* THIS PART IN ADDITIVE SYNTH?
 void addOscillator()
 {
     std::cout << "Oscillator added\n";
@@ -15,5 +20,5 @@ void removeOscillator()
 {
     std::cout << "Oscillator removed\n";
 }
-
+*/
 

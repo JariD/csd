@@ -17,11 +17,7 @@ public:
     double mtof(float mPitch);
 private:
   double sampleRate = 44100;
-  Sine sine;
-  Square square;
-  Oscillator* waveTypeSelection = NULL;
-  Saw saw;
-  Triangle triangle;
+  Oscillator* waveTypeSelection = nullptr;
   Melody melody = {60};
   float amplitude = 0.25;
 //  Melody melody;
