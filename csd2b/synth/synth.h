@@ -13,8 +13,8 @@ public:
 
 protected:
     float gain;
-    //frequentie hier?
     float sampleRate;
+    float frequency;
 };
 
 #endif

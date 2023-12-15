@@ -4,6 +4,7 @@
 #include "oscillator.h"
 #include "saw.h"
 #include "square.h"
+#include "triangle.h"
 
 //parts of the code are from csd github
 #define writeToFileSingleOsc 0
@@ -29,16 +30,16 @@ double mtof(float mPitch)
     return 440.0 * pow(2.0, (mPitch - 69.0f)/12.0f);
 } // mtof()
 
-void updatePitch(Melody& melody, Oscillator* waveTypeSelection) {
+void updatePitch(Melody& melody, Oscillator* oscillatorType) {
     float note = melody.getNote();
     double freq = mtof(note);
     std::cout << "next note: " << note << ", has frequency " << freq << std::endl;
-    waveTypeSelection->setFrequency(freq);
+    oscillatorType->setFrequency(freq);
 } // updatePitch()
 
 void CustomCallback::prepare (int rate) {
     this->sampleRate=rate;
-    updatePitch(melody,waveTypeSelection);
+    updatePitch(melody,oscillatorType);
 } // new prepare()
 
 void CustomCallback::process (AudioBuffer buffer) {
@@ -46,8 +47,8 @@ void CustomCallback::process (AudioBuffer buffer) {
 
     for (int channel = 0; channel < numOutputChannels; ++channel) {
         for (int sample = 0; sample < numFrames; ++sample) {
-            outputChannels[channel][sample] = waveTypeSelection->getSample() * amplitude;
-            waveTypeSelection->tick(); // rather mixed up functionality
+            outputChannels[channel][sample] = oscillatorType->getSample() * amplitude;
+            oscillatorType->tick(); // rather mixed up functionality
 
 /* After every sample, check if we need to advance to the next note
  * This is a bit awkward in this scheme of buffers per channel
@@ -56,7 +57,7 @@ void CustomCallback::process (AudioBuffer buffer) {
             if(frameIndex >= noteDelayFactor * sampleRate) {
 // reset frameIndex
                 frameIndex = 0;
-                updatePitch(melody, waveTypeSelection);
+                updatePitch(melody, oscillatorType);
             }
             else {
 // increment frameindex

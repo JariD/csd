@@ -4,16 +4,15 @@
 #include "synth.h"
 
 //TODO add protected
-class FM : public Synth {
+class FM : public Synth
+{
 public:
     FMSynth();
     ~FMSynth();
     freqModulation();
 protected:
+    Oscillator* carrier;
+    Oscillator* modulator;
 };
-
-
-
-
 
 #endif

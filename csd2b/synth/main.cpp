@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
     UI console_ui;
 
     int waveTypeSelection = console_ui.retrieveUserSelection(waveFormOptions,numWaveFormOptions);
-
+    std::string oscillatorType = waveFormOptions[waveTypeSelection];
 // use the selected option to show the corresponding text
     std::cout << "You selected: " << waveFormOptions[waveTypeSelection] << std::endl;
     // UI function for how many notes the user wants to play

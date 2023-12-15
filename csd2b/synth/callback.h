@@ -17,7 +17,7 @@ public:
     double mtof(float mPitch);
 private:
   double sampleRate = 44100;
-  Oscillator* waveTypeSelection = nullptr;
+  Oscillator* oscillatorType = nullptr;
   Melody melody = {60};
   float amplitude = 0.25;
 //  Melody melody;
