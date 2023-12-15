@@ -7,12 +7,14 @@
 class Synth
 {
 public:
-    Synth();
+    Synth(float sampleRate);
     ~Synth();
+    void setGain(float gain);
 
 protected:
+    float gain;
+    //frequentie hier?
+    float sampleRate;
 };
-
-
 
 #endif

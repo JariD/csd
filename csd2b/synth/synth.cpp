@@ -5,9 +5,20 @@
 //Pointer to oscillator to point to oscillatorclass?
 //need oscillatortype as well
 
-Synth::Synth()
+Synth::Synth(float sampleRate)
+{
+    std::cout << "Synth constructor" << std::endl;
+}
 
+Synth::~Synth()
+{
+    std::cout << "Synth Destructor" << std:endl;
+}
 
+void Synth::setGain(float gain)
+{
+    //gain pointer here
+}
 //SET SAMPLERATE
 //SET AMPLITUDE
 
