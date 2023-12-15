@@ -19,7 +19,7 @@ private:
   double sampleRate = 44100;
   Sine sine;
   Square square;
-  Oscillator* waveTypeSelection;
+  Oscillator* waveTypeSelection = NULL;
   Saw saw;
   Triangle triangle;
   Melody melody = {60};

@@ -29,10 +29,10 @@ int main(int argc, char **argv) {
     Melody melody (numNotes);
 
     //for loop that fills the melody array with notes
-    for(int i = 0; i < numNotes; i++) {
+    for(int index = 0; index < numNotes; index++) {
         std::cout << "Add a MIDI note. You chose in range of the following midi notes: " << "40 - 70" << std::endl;
         int note = console_ui.retrieveValueInRange(40, 70);
-        melody.setNote(i, note);
+        melody.setNote(index, note);
     }
     auto callback = CustomCallback{};
     auto jackModule = JackModule{callback};
