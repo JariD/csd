@@ -6,20 +6,20 @@
 #include "square.h"
 
 //parts of the code are from csd github
-#define singleOsc 0
+#define writeToFileSingleOsc 0
 
-#if singleOsc
+#if writeToFileSingleOsc
 void CustomCallback::process(AudioBuffer buffer) {
   for (int i = 0; i < buffer.numFrames; ++i) {
     // write sample to buffer at channel 0, amp = 0.25
-    buffer.outputChannels[0][i] = triangle.getSample();
-    triangle.tick();
+    buffer.outputChannels[0][i] = saw.getSample();
+    saw.tick();
   }
 }
 
 void CustomCallback::prepare(int rate) {
     //sampleRate = (float) rate;
-    sine.setSamplerate(sampleRate);
+    saw.setSamplerate(sampleRate);
     std::cout << "\nsamplerate: " << sampleRate << "\n";
 }
 

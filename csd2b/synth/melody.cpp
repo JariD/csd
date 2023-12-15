@@ -1,11 +1,18 @@
 #include "melody.h"
 
-Melody::Melody()
+Melody::Melody(int numNotes) : melody(numNotes, 0), numNotes(numNotes), index(0)
 {}
 
 Melody::~Melody()
 {}
 
+void Melody::setNote(int index, float note)
+{
+    if (index >= 0 && index < numNotes)
+    {
+        melody[index] = note;
+    }
+}
 
 /*
  * getNote() reads the next note from the melody
@@ -15,7 +22,7 @@ Melody::~Melody()
 float Melody::getNote()
 {
   // wrap index back to the beginning
-  if(index >= NUM_NOTES) {
+  if(index >= numNotes) {
     index = 0;
   }
   // index++ --> use value, then increment

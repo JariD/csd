@@ -21,7 +21,7 @@ private:
   Square square;
   Saw saw;
   Triangle triangle;
-  Melody melody;
+  Melody melody = {60};
   float amplitude = 0.25;
 //  Melody melody;
   int frameIndex = 0;
