@@ -18,11 +18,11 @@ public:
     void process(AudioBuffer buffer) override;
     double mtof(float mPitch);
 private:
-//    Oscillator* carrierOscillator;
-//    Oscillator* modulatorOscillator;
-//    Sine sineCarrier;
-//    Square squareModulator;
-//    FM fmSynth;
+    Oscillator* carrierOscillator;
+    Oscillator* modulatorOscillator;
+    Sine sineCarrier;
+    Square squareModulator;
+    FM fmSynth;
     double sampleRate = 44100;
 //  Oscillator oscillatortype = oscillatorType;
 //  Oscillator* oscillatorType = nullptr;

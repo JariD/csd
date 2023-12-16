@@ -21,9 +21,6 @@ public:
 private:
     Oscillator* carrierOscillator;
     Oscillator* modulatorOscillator;
-    Sine sineCarrier;
-    Square squareModulator;
-    FM fmSynth;
     float modulationDepth;
 };
 

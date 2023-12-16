@@ -39,11 +39,11 @@ double mtof(float mPitch)
 } // mtof()
 
 //ciska's code for melody
-void updatePitch(Melody& melody, Oscillator* carierOscillator) {
+void updatePitch(Melody& melody, Oscillator* carrierOscillator) {
     float note = melody.getNote();
     double freq = mtof(note);
     std::cout << "next note: " << note << ", has frequency " << freq << std::endl;
-    carierOscillator->setFrequency(freq);
+    carrierOscillator->setFrequency(freq);
 }
 
 void CustomCallback::prepare (int rate) {

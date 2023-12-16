@@ -3,9 +3,9 @@
 #include "callback.h"
 
 FM::FM(Oscillator* carrier, Oscillator* modulator, float sampleRate)
-        : Synth(sampleRate), carrier(carrier), modulator(modulator), modulationDepth(1.0f) {
-    if (this->carrier) this->carrier->setSampleRate(sampleRate);
-    if (this->modulator) this->modulator->setSampleRate(sampleRate);
+        : Synth(sampleRate), carrierOscillator(carrier), modulatorOscillator(modulator), modulationDepth(1.0f) {
+    if (this->carrierOscillator) this->carrierOscillator->setSampleRate(sampleRate);
+    if (this->modulatorOscillator) this->modulatorOscillator->setSampleRate(sampleRate);
 }
 
 FM::~FM()
@@ -20,14 +20,14 @@ void FM::setModulationDepth(float depth)
 
 float FM::process(float input)
 {
-    float modulatedFrequency = input + (modulationDepth * modulator->getSample());
-    carrier->setFrequency(modulatedFrequency);
+    float modulatedFrequency = input + (modulationDepth * modulatorOscillator->getSample());
+    carrierOscillator->setFrequency(modulatedFrequency);
 
-    modulator->tick();
-    return carrier->getSample();
+    modulatorOscillator->tick();
+    return carrierOscillator->getSample();
 }
 
 // NEW INIT OF FM
-FM::FM() : Synth(44100), (carrierOscillator), (modulatorOscillator), modulationDepth(500)
+FM::FM() : Synth(44100), carrierOscillator(nullptr), modulatorOscillator(nullptr), modulationDepth(500)
 {
 }
