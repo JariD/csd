@@ -12,11 +12,12 @@
 #define writeToFileSingleOsc 0
 
 #if writeToFileSingleOsc
+
 void CustomCallback::process(AudioBuffer buffer) {
   for (int i = 0; i < buffer.numFrames; ++i) {
     // write sample to buffer at channel 0, amp = 0.25
-    buffer.outputChannels[0][i] = saw.getSample();
-    saw.tick();
+    buffer.outputChannels[0][i] = sineCarrier.getSample();
+    sineCarrier.tick();
   }
 }
 
@@ -26,7 +27,9 @@ void CustomCallback::process(AudioBuffer buffer) {
 CustomCallback::CustomCallback(){
     //static om bus error te fixen
     static Sine sineCarrier(440, 44100);
+    std::cout << "Sine Carrier" << std::endl;
     static Square squareModulator(440, 44100);
+    std::cout << "square Modulator" << std::endl;
     carrierOscillator = &sineCarrier;
     modulatorOscillator = &squareModulator;
     //koppelen van pointers aan sinus
@@ -48,7 +51,7 @@ void updatePitch(Melody& melody, Oscillator* carrierOscillator) {
 
 void CustomCallback::prepare (int rate) {
     fmSynth.setSampleRate(rate);
-    fmSynth.setModulationDepth(100);
+    fmSynth.setModulationDepth(1.0f);
 }
 
 void CustomCallback::process (AudioBuffer buffer) {

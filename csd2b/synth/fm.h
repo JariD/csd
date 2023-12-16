@@ -22,6 +22,7 @@ private:
     Oscillator* carrierOscillator;
     Oscillator* modulatorOscillator;
     float modulationDepth;
+//    float carrierFrequency;
 };
 
 #endif

@@ -22,12 +22,12 @@ float FM::process(float input)
 {
     float modulatedFrequency = input + (modulationDepth * modulatorOscillator->getSample());
     carrierOscillator->setFrequency(modulatedFrequency);
-
     modulatorOscillator->tick();
+
     return carrierOscillator->getSample();
 }
 
 // NEW INIT OF FM
-FM::FM() : Synth(44100), carrierOscillator(nullptr), modulatorOscillator(nullptr), modulationDepth(500)
+FM::FM() : Synth(44100), carrierOscillator(nullptr), modulatorOscillator(nullptr), modulationDepth(1.0f)
 {
 }
