@@ -7,7 +7,6 @@ class Oscillator
 public:
     Oscillator(float frequency= 0, float samplerate = 44100);
     ~Oscillator();
-
     // allow to set samplerate after initialization
     void setSamplerate(float samplerate);
     //return the current sample
@@ -25,6 +24,7 @@ protected:
     float frequency;
     float amplitude;
     float phase;
+    std::string oscillatorType;
     // sample contains the current sample
     float sample;
     float samplerate;

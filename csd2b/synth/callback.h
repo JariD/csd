@@ -17,8 +17,13 @@ public:
     double mtof(float mPitch);
 private:
   double sampleRate = 44100;
-  Oscillator* oscillatorType = nullptr;
-  Melody melody = {60};
+//  Oscillator oscillatortype = oscillatorType;
+//  Oscillator* oscillatorType = nullptr;
+  Melody melody;
+  Saw saw;
+  Sine sine;
+  Triangle triangle;
+  Square square;
   float amplitude = 0.25;
 //  Melody melody;
   int frameIndex = 0;

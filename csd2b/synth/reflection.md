@@ -23,4 +23,4 @@ What insights do I carry with me to the next block?
 
 ## Effort
 An overview of self study and number of hours put into the assignment
-(Consistency in git)  
+(Consistency in git)
