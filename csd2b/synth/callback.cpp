@@ -60,7 +60,9 @@ void CustomCallback::process (AudioBuffer buffer) {
     for (int channel = 0; channel < numOutputChannels; ++channel) {
         for (int sample = 0; sample < numFrames; ++sample) {
             float currentNote = melody.getNote();
+            std::cout << currentNote << std::endl;
             float fmOutput = fmSynth.process(currentNote);
+//            std::cout << fmOutput << std::endl;
             outputChannels[channel][sample] = fmOutput * amplitude;
 
 /* After every sample, check if we need to advance to the next note
@@ -69,14 +71,18 @@ void CustomCallback::process (AudioBuffer buffer) {
  */
             if(frameIndex >= noteDelayFactor * sampleRate) {
 // reset frameIndex
+//                std::cout << "notedelay" << noteDelayFactor << std::endl;
                 frameIndex = 0;
                 updatePitch(melody, carrierOscillator);
             }
             else {
 // increment frameindex
+//                std::cout << "framIndex" << frameIndex << std::endl;
                 frameIndex++;
             }
         } // for sample
     } // for channel
 }
+
+
 #endif
