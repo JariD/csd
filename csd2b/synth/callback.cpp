@@ -28,7 +28,7 @@ CustomCallback::CustomCallback(){
     //static om bus error te fixen
     static Sine sineCarrier(440, 44100);
     std::cout << "Sine Carrier" << std::endl;
-    static Square squareModulator(440, 44100);
+    static Square squareModulator(100, 44100);
     std::cout << "square Modulator" << std::endl;
     carrierOscillator = &sineCarrier;
     modulatorOscillator = &squareModulator;
@@ -59,7 +59,7 @@ void CustomCallback::process (AudioBuffer buffer) {
 
     for (int channel = 0; channel < numOutputChannels; ++channel) {
         for (int sample = 0; sample < numFrames; ++sample) {
-            float currentNote = melody.getNote();
+            float currentNote = carrierOscillator->getFrequency();
             std::cout << currentNote << std::endl;
             float fmOutput = fmSynth.process(currentNote);
 //            std::cout << fmOutput << std::endl;
