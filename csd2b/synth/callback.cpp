@@ -1,10 +1,12 @@
 #include "callback.h"
 #include "melody.h"
+#include "synth.h"
 #include "sine.h"
 #include "oscillator.h"
 #include "saw.h"
 #include "square.h"
 #include "triangle.h"
+#include "fm.h"
 
 //parts of the code are from csd github
 #define writeToFileSingleOsc 0
@@ -18,37 +20,45 @@ void CustomCallback::process(AudioBuffer buffer) {
   }
 }
 
-void CustomCallback::prepare(int rate) {
-    //sampleRate = (float) rate;
-    saw.setSamplerate(sampleRate);
-    std::cout << "\nsamplerate: " << sampleRate << "\n";
-}
 
 #else
+
+CustomCallback::CustomCallback(){
+    //static om bus error te fixen
+    static Sine sineCarrier(440, 44100);
+    static Square squareModulator(440, 44100);
+    carrierOscillator = &sineCarrier;
+    modulatorOscillator = &squareModulator;
+    //koppelen van pointers aan sinus
+    fmSynth = FM(carrierOscillator, modulatorOscillator, 44100);
+}
+
 double mtof(float mPitch)
 {
     return 440.0 * pow(2.0, (mPitch - 69.0f)/12.0f);
 } // mtof()
 
-void updatePitch(Melody& melody, Saw& saw) {
+//ciska's code for melody
+void updatePitch(Melody& melody, Oscillator* carierOscillator) {
     float note = melody.getNote();
     double freq = mtof(note);
     std::cout << "next note: " << note << ", has frequency " << freq << std::endl;
-    saw.setFrequency(freq);
-} // updatePitch()
+    carierOscillator->setFrequency(freq);
+}
 
 void CustomCallback::prepare (int rate) {
-    this->sampleRate=rate;
-    updatePitch(melody,saw);
-} // new prepare()
+    fmSynth.setSampleRate(rate);
+    fmSynth.setModulationDepth(100);
+}
 
 void CustomCallback::process (AudioBuffer buffer) {
     auto [inputChannels, outputChannels, numInputChannels, numOutputChannels, numFrames] = buffer;
 
     for (int channel = 0; channel < numOutputChannels; ++channel) {
         for (int sample = 0; sample < numFrames; ++sample) {
-            outputChannels[channel][sample] = saw.getSample() * amplitude;
-            saw.tick(); // rather mixed up functionality
+            float currentNote = melody.getNote();
+            float fmOutput = fmSynth.process(currentNote);
+            outputChannels[channel][sample] = fmOutput * amplitude;
 
 /* After every sample, check if we need to advance to the next note
  * This is a bit awkward in this scheme of buffers per channel
@@ -57,7 +67,7 @@ void CustomCallback::process (AudioBuffer buffer) {
             if(frameIndex >= noteDelayFactor * sampleRate) {
 // reset frameIndex
                 frameIndex = 0;
-                updatePitch(melody, saw);
+                updatePitch(melody, carrierOscillator);
             }
             else {
 // increment frameindex

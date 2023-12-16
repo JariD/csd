@@ -8,28 +8,21 @@
 Synth::Synth(float sampleRate)
 {
     std::cout << "Synth constructor" << std::endl;
+    this->sampleRate = sampleRate;
 }
 
 Synth::~Synth()
 {
-    std::cout << "Synth Destructor" << std:endl;
+    std::cout << "Synth Destructor" << std::endl;
+}
+
+void Synth::setSampleRate(float sampleRate)
+{
+    this->sampleRate = sampleRate;
+    std::cout << "samplerate set to: " << sampleRate << std::endl;
 }
 
 void Synth::setGain(float gain)
 {
-    //gain pointer here
+    this->gain = gain;
 }
-//SET SAMPLERATE
-//SET AMPLITUDE
-
-/* THIS PART IN ADDITIVE SYNTH?
-void addOscillator()
-{
-    std::cout << "Oscillator added\n";
-}
-void removeOscillator()
-{
-    std::cout << "Oscillator removed\n";
-}
-*/
-
