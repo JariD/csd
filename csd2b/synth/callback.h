@@ -20,6 +20,9 @@ public:
     void process(AudioBuffer buffer) override;
     double mtof(float mPitch);
 private:
+    //an oscillatorpointer for input from melody
+    Oscillator* melodyOscillator;
+    Sine melodySine;
     Oscillator* carrierOscillator;
     Oscillator* modulatorOscillator;
     Sine sineCarrier;
@@ -34,6 +37,7 @@ private:
     Sine sine;
     Triangle triangle;
     Square square;
+    float currentNote;
     float amplitude = 0.25;
 //    Melody melody;
     int frameIndex = 0;

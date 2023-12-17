@@ -24,10 +24,13 @@ private:
     Oscillator* osc1;
     Oscillator* osc2;
     Oscillator* osc3;
+    Saw sawOsc1;
+    Saw sawOsc2;
+    Square squareOsc;
 
 protected:
     //num Oscillators for destructor
-    int numOsc = 0;
+    float numOsc = 0.0f;
 
 
 
