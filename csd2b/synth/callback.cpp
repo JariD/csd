@@ -10,7 +10,7 @@
 
 //parts of the code are from csd github
 #define writeToFileSingleOsc 0
-
+#define fm 1
 #if writeToFileSingleOsc
 
 void CustomCallback::process(AudioBuffer buffer) {
@@ -22,7 +22,7 @@ void CustomCallback::process(AudioBuffer buffer) {
 }
 
 
-#else
+#elif fm
 
 CustomCallback::CustomCallback(){
     //static om bus error te fixen

@@ -25,7 +25,7 @@ private:
     Sine sineCarrier;
     Square squareModulator;
     FM fmSynth;
-    additiveSynth additiveSynth;
+    AdditiveSynth additiveSynth;
     double sampleRate = 44100;
 //  Oscillator oscillatortype = oscillatorType;
 //  Oscillator* oscillatorType = nullptr;

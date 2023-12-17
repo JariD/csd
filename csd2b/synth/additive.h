@@ -16,19 +16,22 @@ public:
     AdditiveSynth();
     ~AdditiveSynth();
     //function to add an oscillator to an oscillatorpointer
-    void addOscillator(Oscillator* osc);
+    void addOscillator();
+    float process(float input);
     void setOscillatorFrequency(float frequency);
 private:
-    int maxOscillators = 3;
+    int maxOsc = 3;
     Oscillator* osc1;
     Oscillator* osc2;
     Oscillator* osc3;
 
 protected:
     //num Oscillators for destructor
-    int numOscillators = 0;
+    int numOsc = 0;
 
 
 
 
 };
+
+#endif
