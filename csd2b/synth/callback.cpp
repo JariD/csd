@@ -30,9 +30,9 @@ CustomCallback::CustomCallback(){
     std::cout << "Sine Carrier" << std::endl;
     static Square squareModulator(100, 44100);
     std::cout << "square Modulator" << std::endl;
+    //koppelen van pointers aan waveforms
     carrierOscillator = &sineCarrier;
     modulatorOscillator = &squareModulator;
-    //koppelen van pointers aan sinus
     fmSynth = FM(carrierOscillator, modulatorOscillator, 44100);
 }
 

@@ -8,7 +8,9 @@
 #include "triangle.h"
 #include <math.h>
 #include "melody.h"
+#include "synth.h"
 #include "fm.h"
+#include "additive.h"
 
 //parts of the code are from csd github
 class CustomCallback : public AudioCallback {
@@ -23,6 +25,7 @@ private:
     Sine sineCarrier;
     Square squareModulator;
     FM fmSynth;
+    additiveSynth additiveSynth;
     double sampleRate = 44100;
 //  Oscillator oscillatortype = oscillatorType;
 //  Oscillator* oscillatorType = nullptr;
