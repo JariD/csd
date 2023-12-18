@@ -3,12 +3,12 @@
 
 Sine::Sine(float frequency, float sampleRate) : Oscillator(frequency, sampleRate)
 {
-  std::cout << "• Sine::Sine - constructor\n";
+//  std::cout << "• Sine::Sine - constructor\n";
 }
 
 Sine::~Sine()
 {
-  std::cout << "• Sine::~Sine\n";
+//  std::cout << "• Sine::~Sine\n";
 }
 
 void Sine::calculate() {

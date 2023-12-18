@@ -4,7 +4,8 @@
 std::string UI::retrieveUserInput(std::string selectionOptions[], int numOptions)
 {
     // show user the allowed options
-    std::cout << "Please enter your selection. You can choose from: ";
+    std::cout << "Welcome to SimpleSynth" << std::endl;
+    std::cout << "Please choose your Synth. You can choose from: ";
     for(int i = 0; i < numOptions - 1; i++) {
         std::cout << selectionOptions[i] << ", ";
     }
@@ -68,13 +69,3 @@ float UI::retrieveValueInRange(float min, float max)
 
   return value;
 } // retrieveValueInRange()
-
-// TODO FIX
-//bool UI::selectSynth()
-//{
-//    std::cout << "Please select a synth; 1 for FM, 2 for Additive:";
-//    int synthSellect;
-//    std::cin >> selectedSynth;
-//    // might be a better option but this give true when 1 or false when else
-//    return selectedSynth == 1;
-//}

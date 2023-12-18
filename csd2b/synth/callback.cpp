@@ -9,14 +9,22 @@
 #include "fm.h"
 
 
-bool selectedSynth = false;
 
+// USER INPUT
+UI console_ui;
+std::string synthOptions[4] = {"FM", "Additive"};
+int numSynthOptions = 2;
+
+int synthSelection = console_ui.retrieveUserSelection(synthOptions,numSynthOptions);
+bool selectedSynth = (synthSelection ==0);
+
+// AUDIOCALLBACK
 CustomCallback::CustomCallback(){
     //fm init
     static Sine sineCarrier(440, 44100);
-    std::cout << "Sine Carrier" << std::endl;
+//    std::cout << "Sine Carrier" << std::endl;
     static Square squareModulator(100, 44100);
-    std::cout << "square Modulator" << std::endl;
+//    std::cout << "square Modulator" << std::endl;
     //koppelen van pointers aan waveforms
     carrierOscillator = &sineCarrier;
     modulatorOscillator = &squareModulator;
@@ -25,7 +33,7 @@ CustomCallback::CustomCallback(){
     //additive init
     //I use the same sineCarrier so the melody updates on the sineCarrier
     static Sine melodySine(440, 44100);
-    std::cout << "Sine Carrier" << std::endl;
+//    std::cout << "Sine Carrier" << std::endl;
     melodyOscillator = &melodySine;
     additiveSynth.addOscillator();
 }
@@ -63,7 +71,7 @@ void CustomCallback::process (AudioBuffer buffer) {
         for (int sample = 0; sample < numFrames; ++sample) {
             if (selectedSynth) {
                 float currentNote = carrierOscillator->getFrequency();
-                std::cout << currentNote << std::endl;
+//                std::cout << currentNote << std::endl;
                 float fmOutput = fmSynth.process(currentNote);
 //            std::cout << fmOutput << std::endl;
                 outputChannels[channel][sample] = fmOutput * amplitude;

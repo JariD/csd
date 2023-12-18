@@ -48,7 +48,7 @@ void AdditiveSynth::addOscillator()
             numOsc++;
         }
         if (!osc2) {
-            osc2 = &sawOsc2;
+            osc2 = &triangleOsc;
             numOsc++;
         }
         if (!osc3) {

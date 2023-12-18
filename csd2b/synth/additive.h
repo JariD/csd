@@ -27,6 +27,7 @@ private:
     Saw sawOsc1;
     Saw sawOsc2;
     Square squareOsc;
+    Triangle triangleOsc;
 
 protected:
     //num Oscillators for destructor

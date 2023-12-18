@@ -14,6 +14,7 @@ public:
 //    void setNote(int index, float note);
   float getNote();
 
+private:
 protected:
     // makes the melody array dynamic
     // fixes the unable to build
