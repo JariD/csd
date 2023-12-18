@@ -11,6 +11,7 @@
 #include "synth.h"
 #include "fm.h"
 #include "additive.h"
+#include "ui.h"
 
 //parts of the code are from csd github
 class CustomCallback : public AudioCallback {
