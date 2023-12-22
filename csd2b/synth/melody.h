@@ -22,7 +22,7 @@ protected:
 //    std::vector<float> melody;
 //    int numNotes;
     int index;
-    float melody[NUM_NOTES] = {60, 61, 61, 75, 62, 67, 64, 69, 60, 55};
+    float melody[NUM_NOTES] = {61, 63, 64, 66, 63, 63, 59, 61, 61, 61};
 };
 
 #endif

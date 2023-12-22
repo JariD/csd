@@ -13,7 +13,7 @@ Synth::Synth(float sampleRate)
 
 Synth::~Synth()
 {
-    std::cout << "Synth Destructor" << std::endl;
+//    std::cout << "Synth Destructor" << std::endl;
 }
 
 void Synth::setSampleRate(float sampleRate)

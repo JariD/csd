@@ -3,12 +3,12 @@
 
 Triangle::Triangle(float frequency, float sampleRate) : Oscillator(frequency, sampleRate)
 {
-    std::cout << "• Triangle::Triangle - constructor\n";
+//    std::cout << "• Triangle::Triangle - constructor\n";
 }
 
 Triangle::~Triangle()
 {
-    std::cout << "• Triangle::~Triangle\n";
+//    std::cout << "• Triangle::~Triangle\n";
 }
 
 void Triangle::calculate() {

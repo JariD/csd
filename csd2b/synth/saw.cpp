@@ -3,12 +3,12 @@
 
 Saw::Saw(float frequency, float sampleRate) : Oscillator(frequency, sampleRate)
 {
-//    std::cout << "• Saw::Saw - constructor\n";
+    std::cout << "• Saw::Saw - constructor\n";
 }
 
 Saw::~Saw()
 {
-//    std::cout << "• Saw::~Saw\n";
+    std::cout << "• Saw::~Saw\n";
 }
 
 void Saw::calculate() {

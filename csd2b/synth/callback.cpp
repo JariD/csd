@@ -47,14 +47,14 @@ double mtof(float mPitch)
 void updatePitchFM(Melody& melody, Oscillator* carrierOscillator) {
     float note = melody.getNote();
     double freq = mtof(note);
-    std::cout << "next note FM: " << note << ", has frequency " << freq << std::endl;
+//    std::cout << "next note FM: " << note << ", has frequency " << freq << std::endl;
     carrierOscillator->setFrequency(freq);
 }
 
 void updatePitchAdditiveSynth(Melody& melody, Oscillator* melodyOscillator) {
     float note = melody.getNote();
     double freq = mtof(note);
-    std::cout << "next note Add: " << note << ", has frequency " << freq << std::endl;
+//    std::cout << "next note Add: " << note << ", has frequency " << freq << std::endl;
     melodyOscillator->setFrequency(freq);
 }
 
