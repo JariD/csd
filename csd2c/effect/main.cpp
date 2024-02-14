@@ -3,6 +3,7 @@
 #include "jack_module.h"
 #include "math.h"
 #include "audioToFile.h"
+#include "callback.h"
 //parts of the code are from csd github
 
 #define WRITE_TO_FILE 0

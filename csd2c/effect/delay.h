@@ -1,5 +1,4 @@
-#ifndef _DELAY_H_
-#define _DELAY_H_
+#pragma once
 #include <iostream>
 
 class Delay
@@ -11,5 +10,3 @@ protected:
 private:
 
 };
-
-#endif
