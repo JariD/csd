@@ -4,13 +4,10 @@
 //Code parts from class
 Effect::Effect(float dryWet) {
     setDryWet(dryWet);
-    std::cout << "Effect constructor" << std::endl;
 }
 
-Effect::~Effect() {
-    std::cout << "Effect destructor" << std::endl;
-}
 
+//code from class
 void Effect::setDryWet(float dryWet) {
     if(dryWet >=0.0f && dryWet <= 1.0f){
         wet = dryWet;
@@ -19,6 +16,8 @@ void Effect::setDryWet(float dryWet) {
         std::cout << "LOG ERROR - setDryWet" << std::endl;
     }
 }
+
+Effect::~Effect() {}
 
 float Effect::processFrame(float input) {
     float output = applyEffect(input);

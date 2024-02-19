@@ -1,7 +1,7 @@
 #include "callback.h"
 #include "effect.h"
 #include "tremolo.h"
-#include "delay.h"
+
 
 void CustomCallback::prepare(int rate) {
     samplerate = (float) rate;
@@ -14,8 +14,8 @@ void CustomCallback::process(AudioBuffer buffer) {
   float sample;
   for (int channel = 0u; channel < numOutputChannels; channel++) {
     for (int i = 0u; i < numFrames; i++) {
-//      sample = tremolo.processFrame(square.genNextSample());
-      sample = delay.processFrame(inputChannels[channel][i]);
+//      sample = tremolo.processFrame(inputChannels[channel][i]);
+      sample = waveshaper.processFrame(inputChannels[channel][i]);
 //      sample = delay.processFrame(sample);
       outputChannels[channel][i] = sample;
     }
