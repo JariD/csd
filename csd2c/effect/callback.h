@@ -5,6 +5,7 @@
 #include "oscillator.h"
 #include "square.h"
 #include "waveshaper.h"
+#include "delay.h"
 
 
 
@@ -18,6 +19,6 @@ private:
   Tremolo tremolo = Tremolo(14, 1);
 //  Square square = Square(465);
   // TODO - implement Delay
-//  Delay delay = Delay(0.7f, 100, 2048, 0.5f);
+  Delay delay = Delay(400, 400, 0.6f, 0.6f);
   Waveshaper waveshaper = Waveshaper();
 };
