@@ -16,7 +16,7 @@ void Waveshaper::prepare(float samplerate) {
 
 float Waveshaper::applyEffect(float sample) {
 //    (1/arctan(drive))*arctan(drive*x);
-    float drive = 0.7f;
+    float drive = 3.0f;
     float output = (1.0f / std::atan(drive)) * std::atan(drive * sample);
     return output;
 }

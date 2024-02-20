@@ -17,8 +17,8 @@ public:
 private:
   float samplerate = 44100;
   Tremolo tremolo = Tremolo(14, 1);
-//  Square square = Square(465);
+  Square square = Square(465);
   // TODO - implement Delay
-  Delay delay = Delay(400, 400, 0.6f, 0.6f);
+  Delay delay = Delay(400, 800, 0.6f, 0.6f);
   Waveshaper waveshaper = Waveshaper();
 };
