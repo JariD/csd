@@ -2,23 +2,27 @@
 #include <math.h>
 // bitcrusher calculations from pirkle
 
-class Bitcrusher : Effect {
+class Bitcrusher : public Effect {
 public:
-    Bitcrusher();
-    ~Bitcrusher();
+    Bitcrusher() {
+    }
 
-    void prepare(float samplerate) override;
+    ~Bitcrusher(){}
+
+    void prepare(float samplerate) override {}
+
     void setBitDepth(float bitDepth) {
-        this->bithDepth = bitDepth;
-        bitDepth = 2.0 / (pow(2.0, bitDepth) -1.0);
-        return bitDepth;
+        this->bitDepth = 2.0 / (pow(2.0, bitDepth) -1.0);
+        std::cout << this->bitDepth << std::endl;
+    }
+
+    float applyEffect(float input) override {
+//        std::cout << "Input: " << input << std::endl;
+        return bitDepth * static_cast<int>(input/ bitDepth);
+//        std::cout << "Output: " << output << std::endl;
+//        return output;
     }
 
 private:
     float bitDepth;
-
-    float applyEffect(float sample) override() {
-        setbitDepth(float bitDepth);
-        output = bitDepth*(int(input / bitDepth));
-    }
 };
