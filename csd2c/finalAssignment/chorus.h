@@ -2,9 +2,8 @@
 
 #include "effect.h"
 #include "circularBuffer.h"
-#include <triangle.h>
+#include "triangle.h"
 
-//code for final assignment
 //code from github.com/timschippers
 class Chorus : public Effect {
 public:

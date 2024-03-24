@@ -2,8 +2,8 @@
 #include <iostream>
 #include <ostream>
 
-//code for final assignment
 //code from github.com/timschippers
+
 
 AllPassFilter::AllPassFilter(float milliseconds, float feedback)
     : feedbackAmount(feedback) {

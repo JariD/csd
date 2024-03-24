@@ -2,8 +2,8 @@
 #include <iostream>
 #include <ostream>
 
-//code for final assignment
 //code from github.com/timschippers
+
 Delay::Delay(float milliseconds) {
   // TODO clock = main clock
   prepare(44100);
@@ -20,7 +20,7 @@ Delay::~Delay() {
 
 void Delay::prepare(int sampleRate) {
   this->sampleRate = sampleRate;
-  std::cout << "preparing delay" << std::endl;
+  //std::cout << "preparing delay" << std::endl;
   for (int channel = 0; channel < 2; channel++) {
     buffer[channel] = new CircularBuffer;
   }
@@ -43,8 +43,8 @@ void Delay::setDelayTime(float milliseconds, float stereoOffset) {
 };
 
 void Delay::setMaxDelayTime(float milliseconds) {
-  std::cout << "setting max delay time in " << milliseconds << " milliseconds"
-            << std::endl;
+  //std::cout << "setting max delay time in " << milliseconds << " milliseconds"
+            // << std::endl;
   numMaxDelaySamples = sampleRate * (milliseconds / 1000);
   for (int channel = 0; channel < 2; channel++) {
     buffer[channel]->setSize(numMaxDelaySamples);

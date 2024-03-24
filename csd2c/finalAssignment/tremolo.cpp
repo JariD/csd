@@ -1,13 +1,10 @@
 #include "tremolo.h"
 
-//code for final assignment
-//code from github.com/timschippers
-
-Tremolo::Tremolo(): modRate(6) {
+Tremolo::Tremolo(): modRate(30) {
   // TODO use sample rate of main clock the main clock
   prepare(44100);
   setModRate(modRate);
-  setModDepth(1);
+  setModDepth(0.5f);
 };
 
 Tremolo::~Tremolo(){};

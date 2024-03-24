@@ -1,8 +1,6 @@
 #pragma once
 
-//code for final assignment
 //code from github.com/timschippers
-
 class Effect {
 public:
   Effect();

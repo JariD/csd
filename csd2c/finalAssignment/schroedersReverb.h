@@ -2,8 +2,6 @@
 #include "delay.h"
 #include "effect.h"
 
-
-//code for final assignment
 //code from github.com/timschippers
 // based on the example on schroeder reverb in 
 // the book "Designing audio effect plugins by Will C. Pirkle

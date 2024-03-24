@@ -1,7 +1,6 @@
 #include <iostream>
-#include <ostream>
+#include <cmath>
 
-//code for final assignment
 //code from github.com/timschippers
 
 struct Interpolation {

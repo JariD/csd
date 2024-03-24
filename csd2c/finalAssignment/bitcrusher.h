@@ -1,5 +1,5 @@
 #pragma once
-#include <math.h>
+#include <cmath>
 #include <iostream>
 #include "effect.h"
 
@@ -12,22 +12,22 @@ public:
 
     ~Bitcrusher(){}
 
-    void prepare(float samplerate) override {
-
+    void prepare(int samplerate) override {
     }
 
-    void setBitDepth(float bitDepth) {
-        this->bitDepth = 8.0 / (pow(8.0, bitDepth) -1.0);
-        std::cout << this->bitDepth << std::endl;
+    void setBitDepth(float input) {
+        this->bitDepth = 2.0 / (pow(2.0, input) -1.0);
+        // std::cout << this->bitDepth << std::endl;
     }
 
-    float applyEffect(float input) override {
+    void applyEffect(const float &input, float &output, int channel) override {
 //        std::cout << "Input: " << input << std::endl;
-        return bitDepth * static_cast<int>(input/ bitDepth);
+        // output = bitDepth * static_cast<int>(input/ bitDepth);
+        // output = bitDepth * std::floor(input/bitDepth);
+        output = bitDepth * static_cast<int>(std::floor(static_cast<double>(input) / bitDepth));
 //        std::cout << "Output: " << output << std::endl;
-//        return output;
     }
 
 private:
-    float bitDepth;
+    float bitDepth = 4.0f;
 };

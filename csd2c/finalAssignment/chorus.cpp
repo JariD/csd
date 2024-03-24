@@ -2,8 +2,9 @@
 #include <iostream>
 #include <ostream>
 
-//code for final assignment
 //code from github.com/timschippers
+
+
 Chorus::Chorus(float milliseconds) : delayTime(milliseconds) {
   // TODO clock = main clock
   prepare(44100);

@@ -1,6 +1,5 @@
 #include "circularBuffer.h"
 
-//code for final assignment
 //code from github.com/timschippers
 // an all pass filter based on the formula found in 
 // the book "Designing audio effect plugins by Will C. Pirkle

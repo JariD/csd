@@ -1,11 +1,8 @@
 #pragma once
 
-//code for final assignment
-//code from github.com/timschippers
-
 #include "effect.h"
 #include <iostream>
-#include <sine.h>
+#include "sine.h"
 
 class Tremolo : public Effect {
 public:

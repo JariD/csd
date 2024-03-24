@@ -1,20 +1,27 @@
 #include <Bela.h>
 #include <cmath>
 #include <algorithm>
-#include "bitcrusher.h"
-#include "effect.h"
 #include <libraries/Scope/Scope.h>
 #include <iostream>
+#include "bitcrusher.h"
+#include "effect.h"
+#include "tremolo.h"
+#include "waveshaper.h"
 
 
 
 unsigned int gAudioChannelNum; // number of audio channels to iterate over
-float gSensor, gPhase, gInverseSampleRate, input, processedSample;
+float gSensor, sensorCrush, sensorTrem, sensorWS, gPhase, gInverseSampleRate, input, processedSample;
 int gAudioFramesPerAnalogFrame = 0;
 
 // init scope and bitcrusher
 Scope scope;
 Bitcrusher bitCrusher;
+Tremolo tremolo;
+Waveshaper waverShaper;
+
+
+
 
 bool setup(BelaContext *context, void *userData)
 {
@@ -24,6 +31,9 @@ bool setup(BelaContext *context, void *userData)
 	
 	//setup for scope with 2 channel
 	scope.setup(3, context->audioSampleRate);
+	
+	bitCrusher.setDryWet(0.5f);
+	tremolo.setDryWet(0.3f);
 
 	// Check that we have the same number of inputs and outputs.
 	if(context->audioInChannels != context->audioOutChannels){
@@ -50,25 +60,32 @@ void render(BelaContext *context, void *userData)
 	for(unsigned int n = 0; n < context->audioFrames; n++) {
 
 		if(gAudioFramesPerAnalogFrame && !(n % gAudioFramesPerAnalogFrame)) {
-			// analogIn0
+			// analogRead and mapping for sensors
 			gSensor = analogRead(context, n/gAudioFramesPerAnalogFrame, 0);
-			//TODO -> mapping the sensor data to dryWet of bitCrusher
+			sensorCrush = map(gSensor, 0.1, 0.6, 16, 2);
+			sensorTrem = map(gSensor, 0.1, 0.6, 0.0, 0.8);
+			sensorWS = map(gSensor, 0.1, 0.6, 0.0, 8.0);
+			
+			//setters for sensors
+			bitCrusher.setBitDepth(sensorCrush);
+			tremolo.setModDepth(sensorTrem);
+			waverShaper.setDrive(sensorWS);
 			
 		}
 		
 
 		for(unsigned int channel = 0; channel < gAudioChannelNum; channel++) {
-			// Read the audio input and half the amplitude
+			// Read the audio input and half the amplitude and map for effect ranges
 			float input = audioRead(context, n, channel) * 0.5f;
-			
-			//sample proccess
-			processedSample = bitCrusher.processFrame(input);
+			bitCrusher.processSignal(input, processedSample, channel);
+			tremolo.processSignal(processedSample, processedSample, channel);
+			waverShaper.processSignal(processedSample, processedSample, channel);
 			
 			// Write to audio output the audio input
 			audioWrite(context, n, channel, (processedSample));
-			
+		
 			//scope 
-			scope.log(gSensor, input, audioWrite);
+			scope.log(gSensor, sensorTrem, input);
 		}
 		
 

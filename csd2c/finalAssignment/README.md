@@ -1,3 +1,10 @@
-This is the final assignment for CSD block 2c
+## CSD 2C Effect Processing Duo-Project
 
-I used effects from others together with my own bitcrusher and effect processing in bela.
+This project is a duo project for CSD
+
+
+
+### Effect Chain
+
+input -> bitcrusher -> tremolo -> waveshaper -> output
+plant sensor: ^ bitDepth  ^ modDepth ^ drive

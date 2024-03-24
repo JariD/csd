@@ -1,9 +1,9 @@
 #pragma once
+
 #include "circularBuffer.h"
 #include "effect.h"
-
-//code for final assignment
 //code from github.com/timschippers
+
 class Delay : public Effect {
 public:
   Delay(float milliseconds);

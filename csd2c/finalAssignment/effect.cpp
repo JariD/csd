@@ -1,9 +1,9 @@
 #include "effect.h"
 
-//code for final assignment
 //code from github.com/timschippers
 
-Effect::Effect() : channels(2){ setDryWet(1.0f); };
+
+Effect::Effect() : channels(2){ setDryWet(wetVolume); };
 
 Effect::~Effect() {}
 
