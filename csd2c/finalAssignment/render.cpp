@@ -1,41 +1,30 @@
 #include <Bela.h>
 #include <cmath>
 #include <algorithm>
-#include <libraries/Scope/Scope.h>
 #include <iostream>
+#include "init.h"
 #include "bitcrusher.h"
 #include "effect.h"
 #include "tremolo.h"
 #include "waveshaper.h"
+#include "init.h"
 
+//Render, main on BELA
 
-
-unsigned int gAudioChannelNum; // number of audio channels to iterate over
-float gSensor, sensorCrush, sensorTrem, sensorWS, gPhase, gInverseSampleRate, input, processedSample;
-int gAudioFramesPerAnalogFrame = 0;
-
-// init scope and bitcrusher
-Scope scope;
-Bitcrusher bitCrusher;
-Tremolo tremolo;
-Waveshaper waverShaper;
-
-
-
-
+//setup for the audio
 bool setup(BelaContext *context, void *userData)
 {
-	// If the amout of audio input and output channels is not the same
-	// we will use the minimum between input and output
+    // If input/output not same: use minimum between in/out
 	gAudioChannelNum = std::min(context->audioInChannels, context->audioOutChannels);
-	
+
 	//setup for scope with 2 channel
 	scope.setup(3, context->audioSampleRate);
-	
+
+    //set base param for effects
 	bitCrusher.setDryWet(0.5f);
 	tremolo.setDryWet(0.3f);
 
-	// Check that we have the same number of inputs and outputs.
+	// Checker for same number of inputs and outputs.
 	if(context->audioInChannels != context->audioOutChannels){
 		printf("Different number of audio outputs and inputs available. Using %d channels.\n", gAudioChannelNum);
 	}
@@ -54,6 +43,7 @@ bool setup(BelaContext *context, void *userData)
 	return true;
 }
 
+//void loop on BELA
 void render(BelaContext *context, void *userData)
 {
 	// loops for audio
@@ -66,26 +56,22 @@ void render(BelaContext *context, void *userData)
 			sensorTrem = map(gSensor, 0.1, 0.6, 0.0, 0.8);
 			sensorWS = map(gSensor, 0.1, 0.6, 0.0, 8.0);
 			
-			//setters for sensors
+			//effects coupled to sensors
 			bitCrusher.setBitDepth(sensorCrush);
 			tremolo.setModDepth(sensorTrem);
 			waverShaper.setDrive(sensorWS);
-			
 		}
-		
+
 
 		for(unsigned int channel = 0; channel < gAudioChannelNum; channel++) {
 			// Read the audio input and half the amplitude and map for effect ranges
 			float input = audioRead(context, n, channel) * 0.5f;
+            //Efect processing and writing to audio channel
 			bitCrusher.processSignal(input, processedSample, channel);
 			tremolo.processSignal(processedSample, processedSample, channel);
 			waverShaper.processSignal(processedSample, processedSample, channel);
-			
-			// Write to audio output the audio input
+			// Write the processedSignals to the audio output
 			audioWrite(context, n, channel, (processedSample));
-		
-			//scope 
-			scope.log(gSensor, sensorTrem, input);
 		}
 		
 
@@ -93,8 +79,6 @@ void render(BelaContext *context, void *userData)
 
 }
 
-// release mem alloc
 void cleanup(BelaContext *context, void *userData)
 {
-
 }

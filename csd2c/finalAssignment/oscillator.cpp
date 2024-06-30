@@ -19,7 +19,6 @@ void Oscillator::prepare(float samplerate)
 
 // generates and returns the next sample
 float Oscillator::genNextSample() {
-  // NOTE - frequency / SAMPLERATE can be implemented in a more efficient way
   phase += frequency / samplerate;
 
   // wrap the phase so it stays in the interval [0, 1]
@@ -44,7 +43,6 @@ float Oscillator::getSample() {
 
 void Oscillator::setFrequency(float frequency)
 {
-  // TODO add check to see if parameter is valid
   this->frequency = frequency;
 }
 

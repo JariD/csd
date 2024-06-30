@@ -1,6 +1,5 @@
 #pragma once
 
-//code from github.com/timschippers
 class Effect {
 public:
   Effect();

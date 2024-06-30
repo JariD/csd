@@ -1,6 +1,7 @@
 #include "effect.h"
 
 //code from github.com/timschippers
+//co-written, implemented effect.cpp
 
 
 Effect::Effect() : channels(2){ setDryWet(wetVolume); };

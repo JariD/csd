@@ -21,7 +21,6 @@ private:
   double modDepth;
   double modRate;
   double modSignal;
-
-  // TODO make it so it has different waves
   Sine sines[2];
+  Tremolo tremolo;
 };

@@ -1,7 +1,6 @@
 #include "tremolo.h"
 
 Tremolo::Tremolo(): modRate(30) {
-  // TODO use sample rate of main clock the main clock
   prepare(44100);
   setModRate(modRate);
   setModDepth(0.5f);
@@ -26,11 +25,11 @@ void Tremolo::applyEffect(const float &input, float &output, int channel) {
 };
 
 void Tremolo::setModRate(double freq) {
- // for (int channel = 0; channel < channels; channel++) {
-  //  sines[channel].setFrequency(freq);
-  //}
   sines[0].setFrequency(freq);
   sines[1].setFrequency(1.5*freq);
 }
 
-void Tremolo::setModDepth(double modDepth) { this->modDepth = modDepth; }
+void Tremolo::setModDepth(double modDepth) {
+    this->modDepth = modDepth;
+}
+

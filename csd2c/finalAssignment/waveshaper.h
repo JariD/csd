@@ -3,6 +3,8 @@
 #include <iostream>
 #include "effect.h"
 
+//waveshaper calculations based on pirkle
+
 class Waveshaper : public Effect {
 public:
     Waveshaper() {}
@@ -15,10 +17,11 @@ public:
     }
 
     void applyEffect(const float &input, float &output, int channel) override {
-        //    (1/arctan(drive))*arctan(drive*x); drive around 8 is nice
+        // (1/arctan(drive))*arctan(drive*x); drive around 8 is nice
         output = (1.0f / std::atan(drive)) * std::atan(drive * input);
     }
 
 private:
     float drive;
+    Waveshaper waverShaper;
 };
