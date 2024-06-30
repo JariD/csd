@@ -56,7 +56,7 @@ void render(BelaContext *context, void *userData)
 			sensorTrem = map(gSensor, 0.1, 0.6, 0.0, 0.8);
 			sensorWS = map(gSensor, 0.1, 0.6, 0.0, 8.0);
 			
-			//effects coupled to sensors
+			//sensor controlling the effect setters
 			bitCrusher.setBitDepth(sensorCrush);
 			tremolo.setModDepth(sensorTrem);
 			waverShaper.setDrive(sensorWS);

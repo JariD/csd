@@ -20,6 +20,7 @@ public:
         this->bitDepth = 2.0 / (pow(2.0, input) -1.0);
     }
 
+    // applying the effect on the input signal
     void applyEffect(const float &input, float &output, int channel) override {
         output = bitDepth * static_cast<int>(std::floor(static_cast<double>(input) / bitDepth));
     }

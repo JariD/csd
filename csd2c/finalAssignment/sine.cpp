@@ -10,6 +10,7 @@ Sine::Sine(float frequency, float samplerate) :
 
 Sine::~Sine() {}
 
+
 void Sine::calcNextSample()
 {
   sample = sin(M_PI * 2 * phase);

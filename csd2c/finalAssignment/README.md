@@ -16,6 +16,9 @@ My goal was to create the impression that the plant doesn't like to be touched.
 The combination of the waveshaper and bit crusher works exceptionally well, 
 producing a distortion that is surprisingly pleasing to the ears. 
 
+#### The sensor
+The systems effects are controlled by a distance sensor in the plant, these are read on the BELA and the data is then used to controll the parameters of the effects.
+
 #### The system chain flowchart: (see systemDiagram.jpg)
 
     input (audioRead) → bitcrusher → tremolo → waveshaper → output (audioWrite)

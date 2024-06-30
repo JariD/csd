@@ -16,6 +16,7 @@ public:
         this->drive = drive;
     }
 
+    // applying the effect on the input signal
     void applyEffect(const float &input, float &output, int channel) override {
         // (1/arctan(drive))*arctan(drive*x); drive around 8 is nice
         output = (1.0f / std::atan(drive)) * std::atan(drive * input);
@@ -23,5 +24,6 @@ public:
 
 private:
     float drive;
+    //initiation of waveshaper
     Waveshaper waverShaper;
 };
